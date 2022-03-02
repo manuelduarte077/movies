@@ -14,7 +14,12 @@ class DetailsScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                _PosterAndTitle(),
+                const _PosterAndTitle(),
+                const _Overview(),
+                const _Overview(),
+                const _Overview(),
+                const _Overview(),
+                const CastingCardWidget(),
               ],
             ),
           ),
@@ -40,6 +45,7 @@ class _CutomAppBar extends StatelessWidget {
         title: Container(
           width: double.infinity,
           alignment: Alignment.bottomCenter,
+          padding: const EdgeInsets.only(bottom: 10),
           color: Colors.black45,
           child: const Text(
             'movie.title',
@@ -94,6 +100,22 @@ class _PosterAndTitle extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _Overview extends StatelessWidget {
+  const _Overview({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Text(
+        'Commodo magna ex ut irure nisi incididunt ea aliquip et. Amet quis ipsum minim culpa adipisicing non. Eiusmod tempor ea irure dolore est. Irure mollit id velit elit fugiat. Mollit deserunt irure magna excepteur sint fugiat sit. Ea labore fugiat enim eiusmod. Voluptate voluptate aliquip officia sunt mollit labore ut ad culpa do ex elit nisi commodo. Enim et commodo proident ex anim do reprehenderit proident.',
+        textAlign: TextAlign.justify,
+        style: Theme.of(context).textTheme.bodyText1,
       ),
     );
   }
