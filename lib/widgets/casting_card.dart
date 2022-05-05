@@ -12,7 +12,7 @@ class CastingCardWidget extends StatelessWidget {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: 5,
-          itemBuilder: (context, index) => _CastCard()),
+          itemBuilder: (context, index) => const _CastCard()),
     );
   }
 }
@@ -39,11 +39,15 @@ class _CastCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          const Text(
-            'actor.name, Cast Name',
+         const  Text(
+            'actor.name, cast name',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),

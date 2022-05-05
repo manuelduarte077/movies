@@ -4,6 +4,16 @@ import 'package:movies/widgets/widgets.dart';
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({Key? key}) : super(key: key);
 
+  static const String routeName = 'details';
+
+  static Route route() {
+    return MaterialPageRoute(
+      builder: (_) => const DetailsScreen(),
+      settings: const RouteSettings(name: routeName),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     //TODO: Cambiar por una instancia de la clase

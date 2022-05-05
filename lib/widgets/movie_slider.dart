@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class MovieSliderWidget extends StatelessWidget {
   final String title;
+
   const MovieSliderWidget({
     Key? key,
     required this.title,
@@ -47,12 +48,13 @@ class _MoviePoster extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'details',
+            onTap: () => Navigator.pushNamed(context, '/details',
                 arguments: 'movie-slider'),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: const FadeInImage(
-                placeholder: AssetImage('assets/no-image.jpg'),
+                placeholder: NetworkImage(
+                    'https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg'),
                 image: NetworkImage('https://via.placeholder.com/300x400.png'),
                 width: 130,
                 height: 190,
@@ -60,12 +62,12 @@ class _MoviePoster extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 5),
           const Text(
             'Engame es una película de acción y aventura dirigida por Brad Bird y estrenada en el 22 de abril de 2019 en el cine de Hollywood.',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
+
           ),
         ],
       ),
