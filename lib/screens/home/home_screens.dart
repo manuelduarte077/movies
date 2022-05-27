@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:movies/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   static const String routeName = '/';
 
   static Route route() {
-    return MaterialPageRoute(
+    return MaterialPageRoute<dynamic>(
       builder: (_) => const HomeScreen(),
       settings: const RouteSettings(name: routeName),
     );
@@ -39,7 +39,6 @@ class HomeScreen extends StatelessWidget {
             MovieSliderWidget(
               title: 'Tv populares',
             ),
-
           ],
         ),
       ),
