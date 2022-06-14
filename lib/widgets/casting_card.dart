@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CastingCardWidget extends StatelessWidget {
-  const CastingCardWidget({Key? key}) : super(key: key);
+  const CastingCardWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,15 +10,16 @@ class CastingCardWidget extends StatelessWidget {
       width: double.infinity,
       height: 180,
       child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 5,
-          itemBuilder: (context, index) => const _CastCard()),
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        itemBuilder: (context, index) => const _CastCard(),
+      ),
     );
   }
 }
 
 class _CastCard extends StatelessWidget {
-  const _CastCard({Key? key}) : super(key: key);
+  const _CastCard();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class _CastCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-         const  Text(
+          const Text(
             'actor.name, cast name',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,

@@ -17,22 +17,6 @@ class Movie {
     required this.voteAverage,
     required this.voteCount,
   });
-
-  bool adult;
-  String backdropPath;
-  List<int> genreIds;
-  int id;
-  String? originalLanguage;
-  String originalTitle;
-  String overview;
-  double popularity;
-  String? posterPath;
-  DateTime? releaseDate;
-  String title;
-  bool video;
-  double voteAverage;
-  int voteCount;
-
   factory Movie.fromJson(String str) => Movie.fromMap(json.decode(str));
 
   factory Movie.fromMap(Map<String, dynamic> json) => Movie(
@@ -51,4 +35,19 @@ class Movie {
         voteAverage: json["vote_average"].toDouble(),
         voteCount: json["vote_count"],
       );
+
+  final bool adult;
+  String backdropPath;
+  List<int> genreIds;
+  int id;
+  String? originalLanguage;
+  String originalTitle;
+  String overview;
+  double popularity;
+  String? posterPath;
+  DateTime? releaseDate;
+  String title;
+  bool video;
+  double voteAverage;
+  int voteCount;
 }
