@@ -2,7 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 
 class CardSwiperWidget extends StatelessWidget {
-  const CardSwiperWidget({Key? key}) : super(key: key);
+  const CardSwiperWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,11 @@ class CardSwiperWidget extends StatelessWidget {
         layout: SwiperLayout.STACK,
         itemBuilder: (context, int index) {
           return GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'details',
-                arguments: 'movie-$index'),
+            onTap: () => Navigator.pushNamed(
+              context,
+              'details',
+              arguments: 'movie-$index',
+            ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: const FadeInImage(

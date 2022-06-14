@@ -4,8 +4,6 @@ import 'package:movies/screens/screens.dart';
 
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
-    print('The Route is: ${settings.name}');
-
     switch (settings.name) {
       case '/':
         return HomeScreen.route();

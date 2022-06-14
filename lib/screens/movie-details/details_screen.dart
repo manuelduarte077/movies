@@ -15,19 +15,18 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: Cambiar por una instancia de la clase
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const _CutomAppBar(),
+          _CutomAppBar(),
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                const _PosterAndTitle(),
-                const _Overview(),
-                const _Overview(),
-                const _Overview(),
-                const _Overview(),
+                _PosterAndTitle(),
+                _Overview(),
+                _Overview(),
+                _Overview(),
+                _Overview(),
                 const CastingCardWidget(),
               ],
             ),
@@ -39,18 +38,15 @@ class DetailsScreen extends StatelessWidget {
 }
 
 class _CutomAppBar extends StatelessWidget {
-  const _CutomAppBar({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
       backgroundColor: Colors.indigo,
       expandedHeight: 200,
-      floating: false,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
-        titlePadding: const EdgeInsets.all(0),
+        titlePadding: EdgeInsets.zero,
         title: Container(
           width: double.infinity,
           alignment: Alignment.bottomCenter,
@@ -72,8 +68,6 @@ class _CutomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitle extends StatelessWidget {
-  const _PosterAndTitle({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -95,15 +89,23 @@ class _PosterAndTitle extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('movie.title',
-                  style: textTheme.headline6, overflow: ellipsis),
-              Text('movie.originalTitle',
-                  style: textTheme.headline6, overflow: ellipsis),
+              Text(
+                'movie.title',
+                style: textTheme.headline6,
+                overflow: ellipsis,
+              ),
+              Text(
+                'movie.originalTitle',
+                style: textTheme.headline6,
+                overflow: ellipsis,
+              ),
               Row(
                 children: [
                   const Icon(Icons.star, color: Colors.yellow),
-                  Text('movie.voteAverage',
-                      style: Theme.of(context).textTheme.headline6),
+                  Text(
+                    'movie.voteAverage',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                 ],
               ),
             ],
@@ -115,14 +117,13 @@ class _PosterAndTitle extends StatelessWidget {
 }
 
 class _Overview extends StatelessWidget {
-  const _Overview({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
-        'Commodo magna ex ut irure nisi incididunt ea aliquip et. Amet quis ipsum minim culpa adipisicing non. Eiusmod tempor ea irure dolore est. Irure mollit id velit elit fugiat. Mollit deserunt irure magna excepteur sint fugiat sit. Ea labore fugiat enim eiusmod. Voluptate voluptate aliquip officia sunt mollit labore ut ad culpa do ex elit nisi commodo. Enim et commodo proident ex anim do reprehenderit proident.',
+        '''
+Commodo magna ex ut irure nisi incididunt ea aliquip et. Amet quis ipsum minim culpa adipisicing non. Eiusmod tempor ea irure dolore est. Irure mollit id velit elit fugiat. Mollit deserunt irure magna excepteur sint fugiat sit. Ea labore fugiat enim eiusmod. Voluptate voluptate aliquip officia sunt mollit labore ut ad culpa do ex elit nisi commodo. Enim et commodo proident ex anim do reprehenderit proident.''',
         textAlign: TextAlign.justify,
         style: Theme.of(context).textTheme.bodyText1,
       ),
