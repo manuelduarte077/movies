@@ -21,7 +21,7 @@ class MoviesProvider extends ChangeNotifier {
       'page': '1',
     });
 
-    var response = await http.get(url);
+    final response = await http.get(url);
     final nowPlayingResponse = NowPlayingResponse.fromJson(response.body);
 
     print("response.body: ${nowPlayingResponse.results[1].title}");

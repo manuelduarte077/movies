@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:movies/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({Key? key}) : super(key: key);
+  const DetailsScreen({super.key});
 
   static const String routeName = 'details';
 
   static Route route() {
-    return MaterialPageRoute(
+    return MaterialPageRoute<dynamic>(
       builder: (_) => const DetailsScreen(),
       settings: const RouteSettings(name: routeName),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

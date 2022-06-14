@@ -49,5 +49,3 @@ app.*.map.json
  
 
 # Platform specific
-windows/
-linux/
