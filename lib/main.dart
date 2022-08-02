@@ -3,7 +3,9 @@ import 'package:movies/app/app.dart';
 import 'package:movies/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(const AppState());
+void main() {
+  runApp(const AppState());
+}
 
 class AppState extends StatelessWidget {
   const AppState({super.key});

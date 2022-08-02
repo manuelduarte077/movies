@@ -49,3 +49,8 @@ app.*.map.json
  
 
 # Platform specific
+linux/
+macos/
+windows/
+web/
+test/

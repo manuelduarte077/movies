@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:movies/providers/movies_provider.dart';
 import 'package:movies/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -6,8 +9,8 @@ class HomeScreen extends StatelessWidget {
 
   static const String routeName = '/';
 
-  static Route route() {
-    return MaterialPageRoute<dynamic>(
+  static Route route<T>() {
+    return MaterialPageRoute(
       builder: (_) => const HomeScreen(),
       settings: const RouteSettings(name: routeName),
     );
@@ -15,6 +18,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final moviesProvider = Provider.of<MoviesProvider>(context);
+
+    print(moviesProvider.onDisplayMovies);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Movies'),
@@ -28,14 +35,13 @@ class HomeScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: const [
-            CardSwiperWidget(),
-
+          children: [
+            CardSwiperWidget(movies: moviesProvider.onDisplayMovies),
             // list of peliculas
-            MovieSliderWidget(
+            const MovieSliderWidget(
               title: 'Populares',
             ),
-            MovieSliderWidget(
+            const MovieSliderWidget(
               title: 'Tv populares',
             ),
           ],

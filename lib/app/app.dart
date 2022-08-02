@@ -10,7 +10,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Peliculas',
       initialRoute: HomeScreen.routeName,
       onGenerateRoute: AppRouter.onGenerateRoute,
       theme: ThemeData.light().copyWith(

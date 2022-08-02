@@ -3,7 +3,7 @@ import 'package:movies/helpers/helpers.dart';
 import 'package:movies/screens/screens.dart';
 
 class AppRouter {
-  static Route onGenerateRoute(RouteSettings settings) {
+  static Route onGenerateRoute<T>(RouteSettings settings) {
     switch (settings.name) {
       case '/':
         return HomeScreen.route();

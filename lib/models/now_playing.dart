@@ -16,11 +16,11 @@ class NowPlayingResponse {
   });
   factory NowPlayingResponse.fromMap(Map<String, dynamic> json) =>
       NowPlayingResponse(
-        dates: Dates.fromMap(json["dates"]),
-        page: json["page"],
-        results: List<Movie>.from(json["results"].map((x) => Movie.fromMap(x))),
-        totalPages: json["total_pages"],
-        totalresults: json["total_results"],
+        dates: Dates.fromMap(json['dates']),
+        page: json['page'],
+        results: List<Movie>.from(json['results'].map((x) => Movie.fromMap(x))),
+        totalPages: json['total_pages'],
+        totalresults: json['total_results'],
       );
   factory NowPlayingResponse.fromJson(String str) =>
       NowPlayingResponse.fromMap(json.decode(str));
@@ -40,8 +40,8 @@ class Dates {
   factory Dates.fromJson(String str) => Dates.fromMap(json.decode(str));
 
   factory Dates.fromMap(Map<String, dynamic> json) => Dates(
-        maximum: DateTime.parse(json["maximum"]),
-        minimum: DateTime.parse(json["minimum"]),
+        maximum: DateTime.parse(json['maximum']),
+        minimum: DateTime.parse(json['minimum']),
       );
 
   DateTime maximum;
