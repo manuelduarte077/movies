@@ -25,6 +25,14 @@ class Movie {
     return 'https://i.stack.imgur.com/GNhxO.png';
   }
 
+  get fullBackdropPath {
+    if (backdropPath != null) {
+      return 'https://image.tmdb.org/t/p/w500$backdropPath';
+    }
+
+    return 'https://i.stack.imgur.com/GNhxO.png';
+  }
+
   factory Movie.fromJson(String str) => Movie.fromMap(json.decode(str));
 
   factory Movie.fromMap(Map<String, dynamic> json) => Movie(
@@ -37,7 +45,7 @@ class Movie {
         overview: json['overview'],
         popularity: json['popularity'].toDouble(),
         posterPath: json['poster_path'],
-        releaseDate: DateTime.parse(json['release_date']),
+        releaseDate: json['release_date'],
         title: json['title'],
         video: json['video'],
         voteAverage: json['vote_average'].toDouble(),
@@ -53,7 +61,7 @@ class Movie {
   String overview;
   double popularity;
   String? posterPath;
-  DateTime? releaseDate;
+  String? releaseDate;
   String title;
   bool video;
   double voteAverage;
