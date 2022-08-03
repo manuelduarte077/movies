@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:movies/models/movie.dart';
 import 'package:movies/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key});
+  const DetailsScreen({super.key, required this.movies});
 
-  static const String routeName = 'details';
+  static const String routeName = '/details';
 
-  static Route route() {
+  final Movie movies;
+
+  static Route route({required Movie movies}) {
     return MaterialPageRoute<dynamic>(
-      builder: (_) => const DetailsScreen(),
+      builder: (_) => DetailsScreen(
+        movies: movies,
+      ),
       settings: const RouteSettings(name: routeName),
     );
   }
@@ -18,15 +23,12 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _CutomAppBar(),
+          _CutomAppBar(movie: movies),
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                _PosterAndTitle(),
-                _Overview(),
-                _Overview(),
-                _Overview(),
-                _Overview(),
+                _PosterAndTitle(movie: movies),
+                _Overview(movie: movies),
                 const CastingCardWidget(),
               ],
             ),
@@ -38,6 +40,10 @@ class DetailsScreen extends StatelessWidget {
 }
 
 class _CutomAppBar extends StatelessWidget {
+  final Movie movie;
+
+  const _CutomAppBar({required this.movie});
+
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -50,16 +56,17 @@ class _CutomAppBar extends StatelessWidget {
         title: Container(
           width: double.infinity,
           alignment: Alignment.bottomCenter,
-          padding: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
           color: Colors.black45,
-          child: const Text(
-            'movie.title',
-            style: TextStyle(color: Colors.white, fontSize: 16),
+          child: Text(
+            movie.title,
+            style: const TextStyle(color: Colors.white, fontSize: 16),
+            textAlign: TextAlign.center,
           ),
         ),
-        background: const FadeInImage(
-          placeholder: AssetImage('assets/loading.gif'),
-          image: NetworkImage('https://picsum.photos/200/300/?random'),
+        background: FadeInImage(
+          placeholder: const AssetImage('assets/loading.gif'),
+          image: NetworkImage(movie.fullBackdropPath),
           fit: BoxFit.cover,
         ),
       ),
@@ -68,10 +75,15 @@ class _CutomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitle extends StatelessWidget {
+  final Movie movie;
+
+  const _PosterAndTitle({required this.movie});
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     const ellipsis = TextOverflow.ellipsis;
+    final size = MediaQuery.of(context).size;
 
     return Container(
       margin: const EdgeInsets.only(top: 20),
@@ -81,34 +93,39 @@ class _PosterAndTitle extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.network(
-              'https://picsum.photos/200/300/?random',
+              movie.fullPosterImg,
               height: 150,
             ),
           ),
           const SizedBox(width: 20),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'movie.title',
-                style: textTheme.headline6,
-                overflow: ellipsis,
-              ),
-              Text(
-                'movie.originalTitle',
-                style: textTheme.headline6,
-                overflow: ellipsis,
-              ),
-              Row(
-                children: [
-                  const Icon(Icons.star, color: Colors.yellow),
-                  Text(
-                    'movie.voteAverage',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ],
-              ),
-            ],
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: size.width - 180),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  movie.title,
+                  style: textTheme.headline5,
+                  overflow: ellipsis,
+                  maxLines: 2,
+                ),
+                Text(
+                  movie.originalTitle,
+                  style: textTheme.subtitle1,
+                  overflow: ellipsis,
+                  maxLines: 2,
+                ),
+                Row(
+                  children: [
+                    const Icon(Icons.star, color: Colors.yellow),
+                    Text(
+                      movie.voteAverage.toString(),
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -117,13 +134,16 @@ class _PosterAndTitle extends StatelessWidget {
 }
 
 class _Overview extends StatelessWidget {
+  final Movie movie;
+
+  const _Overview({required this.movie});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Text(
-        '''
-Commodo magna ex ut irure nisi incididunt ea aliquip et. Amet quis ipsum minim culpa adipisicing non. Eiusmod tempor ea irure dolore est. Irure mollit id velit elit fugiat. Mollit deserunt irure magna excepteur sint fugiat sit. Ea labore fugiat enim eiusmod. Voluptate voluptate aliquip officia sunt mollit labore ut ad culpa do ex elit nisi commodo. Enim et commodo proident ex anim do reprehenderit proident.''',
+        movie.overview,
         textAlign: TextAlign.justify,
         style: Theme.of(context).textTheme.bodyText1,
       ),

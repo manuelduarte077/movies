@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:movies/helpers/helpers.dart';
+import 'package:movies/models/model.dart';
 import 'package:movies/screens/screens.dart';
 
 class AppRouter {
@@ -8,8 +10,7 @@ class AppRouter {
       case '/':
         return HomeScreen.route();
       case '/details':
-        return DetailsScreen.route();
-
+        return DetailsScreen.route(movies: settings.arguments as Movie);
       default:
         return _errorRoute();
     }
