@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:movies/models/model.dart';
 
-class MovieSliderWidget extends StatelessWidget {
+class MovieSliderWidget extends StatefulWidget {
   const MovieSliderWidget({super.key, this.title, required this.movies});
   final String? title;
   final List<Movie> movies;
 
+  @override
+  State<MovieSliderWidget> createState() => _MovieSliderWidgetState();
+}
+
+class _MovieSliderWidgetState extends State<MovieSliderWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -14,11 +19,11 @@ class MovieSliderWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (title != null)
+          if (widget.title != null)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                title!,
+                widget.title!,
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
@@ -27,9 +32,9 @@ class MovieSliderWidget extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: movies.length,
+              itemCount: widget.movies.length,
               itemBuilder: (context, index) => _MoviePoster(
-                movies[index],
+                widget.movies[index],
               ),
             ),
           ),
