@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movies/models/model.dart';
 
 class MovieSliderWidget extends StatelessWidget {
-  const MovieSliderWidget({
-    super.key,
-    required this.title,
-  });
-  final String title;
+  const MovieSliderWidget({super.key, this.title, required this.movies});
+  final String? title;
+  final List<Movie> movies;
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +14,23 @@ class MovieSliderWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              title,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          if (title != null)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                title!,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
           const SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (context, index) => _MoviePoster(),
+              itemCount: movies.length,
+              itemBuilder: (context, index) => _MoviePoster(
+                movies[index],
+              ),
             ),
           ),
         ],
@@ -37,6 +40,10 @@ class MovieSliderWidget extends StatelessWidget {
 }
 
 class _MoviePoster extends StatelessWidget {
+  final Movie movie;
+
+  const _MoviePoster(this.movie);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,23 +60,25 @@ class _MoviePoster extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: const FadeInImage(
-                placeholder: NetworkImage(
+              child: FadeInImage(
+                placeholder: const NetworkImage(
                   'https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg',
                 ),
-                image: NetworkImage('https://via.placeholder.com/300x400.png'),
+                image: NetworkImage(movie.fullPosterImg),
                 width: 130,
-                height: 190,
+                height: 180,
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          const Text(
-            '''
-Engame es una película de acción y aventura dirigida por Brad Bird y estrenada en el 22 de abril de 2019 en el cine de Hollywood''',
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Text(
+              movie.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),

@@ -19,7 +19,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final moviesProvider = Provider.of<MoviesProvider>(context);
-    final popularProvider = Provider.of<MoviesProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -39,9 +38,11 @@ class HomeScreen extends StatelessWidget {
             // list of peliculas
             MovieSliderWidget(
               title: 'Populares',
+              movies: moviesProvider.popularMovies,
             ),
-            const MovieSliderWidget(
+            MovieSliderWidget(
               title: 'Tv populares',
+              movies: moviesProvider.popularMovies,
             ),
           ],
         ),
