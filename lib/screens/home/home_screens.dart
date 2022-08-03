@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movies/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
 
-import 'package:movies/providers/movies_provider.dart';
 import 'package:movies/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -39,11 +39,12 @@ class HomeScreen extends StatelessWidget {
             MovieSliderWidget(
               title: 'Populares',
               movies: moviesProvider.popularMovies,
+              onNextPage: () => moviesProvider.getPopularMovies(),
             ),
-            MovieSliderWidget(
-              title: 'Tv populares',
-              movies: moviesProvider.popularMovies,
-            ),
+            // MovieSliderWidget(
+            //   title: 'Tv populares',
+            //   movies: moviesProvider.popularMovies,
+            // ),
           ],
         ),
       ),
