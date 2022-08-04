@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: AppRouter.onGenerateRoute,
       theme: ThemeData.light().copyWith(
         appBarTheme: const AppBarTheme(
-          color: Colors.indigo,
+          color: Colors.white,
           elevation: 0,
         ),
       ),

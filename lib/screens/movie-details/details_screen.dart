@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movies/models/movie.dart';
 import 'package:movies/widgets/widgets.dart';
 
@@ -21,6 +22,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           _CutomAppBar(movie: movies),
@@ -62,7 +64,9 @@ class _CutomAppBar extends StatelessWidget {
           color: Colors.black45,
           child: Text(
             movie.title,
-            style: const TextStyle(color: Colors.white, fontSize: 16),
+            style: GoogleFonts.lato(
+              textStyle: const TextStyle(color: Colors.white, fontSize: 14),
+            ),
             textAlign: TextAlign.center,
           ),
         ),
@@ -83,7 +87,6 @@ class _PosterAndTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     const ellipsis = TextOverflow.ellipsis;
     final size = MediaQuery.of(context).size;
 
@@ -107,13 +110,16 @@ class _PosterAndTitle extends StatelessWidget {
               children: [
                 Text(
                   movie.title,
-                  style: textTheme.headline5,
+                  style: GoogleFonts.lato(
+                      textStyle: Theme.of(context).textTheme.headline5),
                   overflow: ellipsis,
                   maxLines: 2,
                 ),
                 Text(
                   movie.originalTitle,
-                  style: textTheme.subtitle1,
+                  style: GoogleFonts.lato(
+                    textStyle: Theme.of(context).textTheme.subtitle1,
+                  ),
                   overflow: ellipsis,
                   maxLines: 2,
                 ),
@@ -147,7 +153,8 @@ class _Overview extends StatelessWidget {
       child: Text(
         movie.overview,
         textAlign: TextAlign.justify,
-        style: Theme.of(context).textTheme.bodyText1,
+        style:
+            GoogleFonts.lato(textStyle: Theme.of(context).textTheme.headline6),
       ),
     );
   }
