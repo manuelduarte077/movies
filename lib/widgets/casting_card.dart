@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movies/models/model.dart';
 import 'package:movies/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
@@ -19,23 +20,35 @@ class CastingCardWidget extends StatelessWidget {
           return Container(
             constraints: const BoxConstraints(maxWidth: 150),
             height: 180,
-            child: const CircularProgressIndicator.adaptive(),
+            child: const CupertinoActivityIndicator(),
           );
         }
 
         final List<Cast> cast = snapshot.data!;
 
-        return Container(
-          margin: const EdgeInsets.only(bottom: 30),
-          width: double.infinity,
-          height: 180,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: cast.length,
-            itemBuilder: (context, index) => _CastCard(
-              cast[index],
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              child: Text(
+                'Casting',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 30),
+              width: double.infinity,
+              height: 180,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: cast.length,
+                itemBuilder: (context, index) => _CastCard(
+                  cast[index],
+                ),
+              ),
+            ),
+          ],
         );
       },
     );
@@ -71,9 +84,11 @@ class _CastCard extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
+            style: GoogleFonts.lato(
+              textStyle: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],

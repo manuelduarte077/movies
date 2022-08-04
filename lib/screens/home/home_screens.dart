@@ -21,11 +21,20 @@ class HomeScreen extends StatelessWidget {
     final moviesProvider = Provider.of<MoviesProvider>(context);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Movies'),
+        title: const Text(
+          'Movies',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
             onPressed: () {},
           ),
           const CircleAvatarWidget(),
@@ -35,7 +44,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             CardSwiperWidget(movies: moviesProvider.onDisplayMovies),
-            // list of peliculas
+            // list of movies
             MovieSliderWidget(
               title: 'Populares',
               movies: moviesProvider.popularMovies,

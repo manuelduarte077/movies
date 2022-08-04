@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movies/models/model.dart';
 
 class MovieSliderWidget extends StatefulWidget {
@@ -49,8 +50,10 @@ class _MovieSliderWidgetState extends State<MovieSliderWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 widget.title!,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: GoogleFonts.lato(
+                  textStyle: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           const SizedBox(height: 5),
@@ -106,6 +109,12 @@ class _MoviePoster extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
+              style: GoogleFonts.lato(
+                textStyle: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ],
