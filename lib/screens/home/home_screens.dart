@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movies/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'package:movies/providers/movies_provider.dart';
+import 'package:movies/search/search_delegate.dart';
 import 'package:movies/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -35,7 +36,9 @@ class HomeScreen extends StatelessWidget {
               Icons.search,
               color: Colors.black,
             ),
-            onPressed: () {},
+            onPressed: () {
+              showSearch(context: context, delegate: MovieSearchDelegate());
+            },
           ),
           const CircleAvatarWidget(),
         ],

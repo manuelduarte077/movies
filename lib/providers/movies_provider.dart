@@ -53,6 +53,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   Future<List<Cast>> getMoviesCasting(int movieId) async {
+    // Para mantener la data en cache
     if (movieCasting.containsKey(movieId)) return movieCasting[movieId]!;
 
     final jsonData =
