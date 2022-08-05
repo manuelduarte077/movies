@@ -123,14 +123,27 @@ class _PosterAndTitle extends StatelessWidget {
                   overflow: ellipsis,
                   maxLines: 2,
                 ),
-                Row(
-                  children: [
-                    const Icon(Icons.star, color: Colors.yellow),
-                    Text(
-                      movie.voteAverage.toString(),
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ],
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Icon(Icons.star, color: Colors.yellow),
+                      Text(
+                        movie.voteAverage.toString(),
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      const Spacer(),
+                      const Icon(Icons.date_range, color: Colors.indigo),
+                      Text(
+                        movie.releaseDate!,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
