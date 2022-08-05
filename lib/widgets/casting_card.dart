@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:movies/models/model.dart';
-import 'package:movies/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:movies/providers/movies_provider.dart';
+import 'package:movies/models/model.dart';
 
 class CastingCardWidget extends StatelessWidget {
   const CastingCardWidget({super.key, required this.movieId});
@@ -64,8 +65,6 @@ class _CastCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
-      width: 110,
-      height: 100,
       child: Column(
         children: [
           ClipRRect(
@@ -89,6 +88,15 @@ class _CastCard extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
+            ),
+          ),
+          Text(
+            actor.character!,
+            overflow: TextOverflow.ellipsis,
+            softWrap: true,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.lato(
+              textStyle: const TextStyle(fontSize: 12),
             ),
           ),
         ],
