@@ -25,12 +25,7 @@ class MovieSearchDelegate extends SearchDelegate {
   Widget? buildLeading(BuildContext context) {
     return IconButton(
       icon: const Icon(Icons.arrow_back_ios_new),
-      onPressed: () => {
-        close(
-          context,
-          null,
-        )
-      },
+      onPressed: () => {close(context, null)},
     );
   }
 
