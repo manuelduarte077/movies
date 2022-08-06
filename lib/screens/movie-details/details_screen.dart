@@ -34,6 +34,9 @@ class DetailsScreen extends StatelessWidget {
                 CastingCardWidget(
                   movieId: movies.id,
                 ),
+                SimilarCardWidget(
+                  movieId: movies.id,
+                ),
               ],
             ),
           ),
