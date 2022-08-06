@@ -45,7 +45,7 @@ class SimilarCardWidget extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: similar.length,
                 itemBuilder: (context, index) => _CastCard(
-                  similar[index],
+                  similar[index]
                 ),
               ),
             ),
@@ -59,6 +59,7 @@ class SimilarCardWidget extends StatelessWidget {
 class _CastCard extends StatelessWidget {
   final Movie similar;
 
+
   const _CastCard(this.similar);
 
   @override
@@ -69,14 +70,18 @@ class _CastCard extends StatelessWidget {
       height: 100,
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: FadeInImage(
-              image: NetworkImage(similar.fullPosterImg),
-              placeholder: const AssetImage('assets/loading.gif'),
-              height: 140,
-              width: 100,
-              fit: BoxFit.cover,
+          GestureDetector(
+            onTap: () =>
+                Navigator.pushNamed(context, '/details', arguments: similar),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: FadeInImage(
+                image: NetworkImage(similar.fullPosterImg),
+                placeholder: const AssetImage('assets/loading.gif'),
+                height: 140,
+                width: 100,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Text(

@@ -18,7 +18,6 @@ class Movie {
     required this.voteCount,
   });
 
-  String? heroId;
 
   get fullPosterImg {
     if (posterPath != null) {
