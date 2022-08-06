@@ -64,7 +64,9 @@ class _CastCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      width: 110,
+      height: 100,
       child: Column(
         children: [
           ClipRRect(
@@ -73,7 +75,7 @@ class _CastCard extends StatelessWidget {
               image: NetworkImage(actor.fullProfilePath),
               placeholder: const AssetImage('assets/loading.gif'),
               height: 140,
-              width: 110,
+              width: 100,
               fit: BoxFit.cover,
             ),
           ),
@@ -88,15 +90,6 @@ class _CastCard extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
-            ),
-          ),
-          Text(
-            actor.character!,
-            overflow: TextOverflow.ellipsis,
-            softWrap: true,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.lato(
-              textStyle: const TextStyle(fontSize: 12),
             ),
           ),
         ],

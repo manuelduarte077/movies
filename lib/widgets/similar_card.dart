@@ -33,7 +33,7 @@ class SimilarCardWidget extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Similar',
+                'Similar Movies',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
@@ -45,7 +45,7 @@ class SimilarCardWidget extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: similar.length,
                 itemBuilder: (context, index) => _CastCard(
-                  similar[index],
+                  similar[index]
                 ),
               ),
             ),
@@ -59,36 +59,40 @@ class SimilarCardWidget extends StatelessWidget {
 class _CastCard extends StatelessWidget {
   final Movie similar;
 
+
   const _CastCard(this.similar);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
+      width: 110,
+      height: 100,
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: FadeInImage(
-              image: NetworkImage(similar.fullPosterImg),
-              placeholder: const AssetImage('assets/loading.gif'),
-              height: 110,
-              width: 100,
-              fit: BoxFit.cover,
+          GestureDetector(
+            onTap: () =>
+                Navigator.pushNamed(context, '/details', arguments: similar),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: FadeInImage(
+                image: NetworkImage(similar.fullPosterImg),
+                placeholder: const AssetImage('assets/loading.gif'),
+                height: 140,
+                width: 100,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Text(
-              similar.title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.lato(
-                textStyle: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
+          Text(
+            similar.title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.lato(
+              textStyle: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
