@@ -33,7 +33,7 @@ class SimilarCardWidget extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Similar',
+                'Similar Movies',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
@@ -65,6 +65,8 @@ class _CastCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
+      width: 110,
+      height: 100,
       child: Column(
         children: [
           ClipRRect(
@@ -72,23 +74,20 @@ class _CastCard extends StatelessWidget {
             child: FadeInImage(
               image: NetworkImage(similar.fullPosterImg),
               placeholder: const AssetImage('assets/loading.gif'),
-              height: 110,
+              height: 140,
               width: 100,
               fit: BoxFit.cover,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Text(
-              similar.title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.lato(
-                textStyle: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
+          Text(
+            similar.title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.lato(
+              textStyle: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
