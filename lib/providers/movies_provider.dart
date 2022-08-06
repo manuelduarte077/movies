@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:movies/helpers/debouncer.dart';
 import 'package:movies/models/model.dart';
 import 'package:movies/models/search_response.dart';
+import 'package:movies/models/similar_response.dart';
 
 class MoviesProvider extends ChangeNotifier {
   final String _apiKey = '72c3440db6b927508f12139e55f90a26';
@@ -16,6 +17,7 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> popularMovies = [];
 
   Map<int, List<Cast>> movieCasting = {};
+  Map<int, List<Movie>> movieSimilar = {};
 
   int _popularPage = 0;
 
@@ -25,6 +27,7 @@ class MoviesProvider extends ChangeNotifier {
 
   final StreamController<List<Movie>> _suggestionStreamContoller =
       StreamController.broadcast();
+
   Stream<List<Movie>> get suggestionStream => _suggestionStreamContoller.stream;
 
   MoviesProvider() {
@@ -52,7 +55,7 @@ class MoviesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //  Method for popular movies
+  /// Method for popular movies
   getPopularMovies() async {
     _popularPage++;
 
@@ -64,6 +67,21 @@ class MoviesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Get Similar Movie
+  Future<List<Movie>> getSimilarMovies(int movieId) async {
+    _popularPage++;
+
+    if (movieSimilar.containsKey(movieId)) return movieSimilar[movieId]!;
+    final jsonData =
+        await _getJsonData('/3/movie/$movieId/similar', _popularPage);
+    final similarResponse = SimilarResponse.fromJson(jsonData);
+
+    movieSimilar[movieId] = similarResponse.results;
+    // print('Data: ${similarResponse.results}');
+    return similarResponse.results;
+  }
+
+  /// Movie Casting
   Future<List<Cast>> getMoviesCasting(int movieId) async {
     // Para mantener la data en cache
     if (movieCasting.containsKey(movieId)) return movieCasting[movieId]!;
