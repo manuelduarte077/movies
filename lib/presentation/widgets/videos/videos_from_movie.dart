@@ -6,10 +6,12 @@ import 'package:cinemapedia/domain/entities/entities.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 final FutureProviderFamily<List<Video>, int> videosFromMovieProvider =
-    FutureProvider.family((ref, int movieId) {
-  final movieRepository = ref.watch(movieRepositoryProvider);
-  return movieRepository.getYoutubeVideosById(movieId);
-});
+    FutureProvider.family(
+  (ref, int movieId) {
+    final movieRepository = ref.watch(movieRepositoryProvider);
+    return movieRepository.getYoutubeVideosById(movieId);
+  },
+);
 
 class VideosFromMovie extends ConsumerWidget {
   final int movieId;
@@ -22,10 +24,12 @@ class VideosFromMovie extends ConsumerWidget {
 
     return moviesFromVideo.when(
       data: (videos) => _VideosList(videos: videos),
-      error: (_, __) =>
-          const Center(child: Text('No se pudo cargar películas similares')),
-      loading: () =>
-          const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+      error: (_, __) => const Center(
+        child: Text('No se pudo cargar películas similares'),
+      ),
+      loading: () => const Center(
+        child: CircularProgressIndicator(strokeWidth: 2),
+      ),
     );
   }
 }
@@ -45,10 +49,9 @@ class _VideosList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // ignore: prefer_const_constructors
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: const Text(
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
             'Videos',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
@@ -56,7 +59,9 @@ class _VideosList extends StatelessWidget {
 
         //* Aunque tengo varios videos, sólo quiero mostrar el primero
         _YouTubeVideoPlayer(
-            youtubeId: videos.first.youtubeKey, name: videos.first.name)
+          youtubeId: videos.first.youtubeKey,
+          name: videos.first.name,
+        )
 
         //* Si se desean mostrar todos los videos
         // ...videos.map(
@@ -109,10 +114,11 @@ class _YouTubeVideoPlayerState extends State<_YouTubeVideoPlayer> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [Text(widget.name), YoutubePlayer(controller: _controller)],
-        ));
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [Text(widget.name), YoutubePlayer(controller: _controller)],
+      ),
+    );
   }
 }
