@@ -60,7 +60,9 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              return FadeInRight(child: _Slide(movie: widget.movies[index]));
+              return FadeInRight(
+                child: _Slide(movie: widget.movies[index]),
+              );
             },
           ))
         ],
@@ -91,11 +93,12 @@ class _Slide extends StatelessWidget {
               child: GestureDetector(
                 onTap: () => context.push('/home/0/movie/${movie.id}'),
                 child: FadeInImage(
-                    height: 200,
-                    fit: BoxFit.cover,
-                    placeholder:
-                        const AssetImage('assets/loaders/bottle-loader.gif'),
-                    image: NetworkImage(movie.posterPath)),
+                  height: 200,
+                  fit: BoxFit.cover,
+                  placeholder:
+                      const AssetImage('assets/loaders/bottle-loader.gif'),
+                  image: NetworkImage(movie.posterPath),
+                ),
               ),
             ),
           ),
@@ -139,9 +142,10 @@ class _Title extends StatelessWidget {
           const Spacer(),
           if (subTitle != null)
             FilledButton.tonal(
-                style: const ButtonStyle(visualDensity: VisualDensity.compact),
-                onPressed: () {},
-                child: Text(subTitle!))
+              style: const ButtonStyle(visualDensity: VisualDensity.compact),
+              onPressed: () {},
+              child: Text(subTitle ?? ''),
+            )
         ],
       ),
     );

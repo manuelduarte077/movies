@@ -24,9 +24,10 @@ class PopularViewState extends ConsumerState<PopularView>
 
     return Scaffold(
       body: MovieMasonry(
-          loadNextPage: () =>
-              ref.read(popularMoviesProvider.notifier).loadNextPage(),
-          movies: popularMovies),
+        loadNextPage: () =>
+            ref.read(popularMoviesProvider.notifier).loadNextPage(),
+        movies: popularMovies,
+      ),
     );
   }
 

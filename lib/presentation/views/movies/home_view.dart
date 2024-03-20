@@ -35,57 +35,50 @@ class HomeViewState extends ConsumerState<HomeView>
     final topRatedMovies = ref.watch(topRatedMoviesProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
 
-    return CustomScrollView(slivers: [
-      const SliverAppBar(
-        floating: true,
-        flexibleSpace: FlexibleSpaceBar(
-          titlePadding: EdgeInsets.all(
-              0), // Soluciono el problema del espacio en el CustomAppbar
-          title: CustomAppbar(),
+    return CustomScrollView(
+      slivers: [
+        const SliverAppBar(
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            titlePadding: EdgeInsets.all(
+                0), // Soluciono el problema del espacio en el CustomAppbar
+            title: CustomAppbar(),
+          ),
         ),
-      ),
-      SliverList(
+        SliverList(
           delegate: SliverChildBuilderDelegate((context, index) {
-        return Column(
-          children: [
-            // const CustomAppbar(),
-
-            MoviesSlideshow(movies: slideShowMovies),
-
-            MovieHorizontalListview(
-                movies: nowPlayingMovies,
-                title: 'En cines',
-                subTitle: 'Lunes 20',
-                loadNextPage: () =>
-                    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage()),
-
-            MovieHorizontalListview(
-                movies: upcomingMovies,
-                title: 'Próximamente',
-                subTitle: 'En este mes',
-                loadNextPage: () =>
-                    ref.read(upcomingMoviesProvider.notifier).loadNextPage()),
-
-            //* Ya no estará aquí, ahora es parte del menú inferior
-            // MovieHorizontalListview(
-            //   movies: popularMovies,
-            //   title: 'Populares',
-            //   // subTitle: '',
-            //   loadNextPage: () =>ref.read(popularMoviesProvider.notifier).loadNextPage()
-            // ),
-
-            MovieHorizontalListview(
-                movies: topRatedMovies,
-                title: 'Mejor calificadas',
-                subTitle: 'Desde siempre',
-                loadNextPage: () =>
-                    ref.read(topRatedMoviesProvider.notifier).loadNextPage()),
-
-            const SizedBox(height: 10),
-          ],
-        );
-      }, childCount: 1)),
-    ]);
+            return Column(
+              children: [
+                MoviesSlideshow(movies: slideShowMovies),
+                MovieHorizontalListview(
+                  movies: nowPlayingMovies,
+                  title: 'En cines',
+                  subTitle: 'Lunes 20',
+                  loadNextPage: () => ref
+                      .read(nowPlayingMoviesProvider.notifier)
+                      .loadNextPage(),
+                ),
+                MovieHorizontalListview(
+                  movies: upcomingMovies,
+                  title: 'Próximamente',
+                  subTitle: 'En este mes',
+                  loadNextPage: () =>
+                      ref.read(upcomingMoviesProvider.notifier).loadNextPage(),
+                ),
+                MovieHorizontalListview(
+                  movies: topRatedMovies,
+                  title: 'Mejor calificadas',
+                  subTitle: 'Desde siempre',
+                  loadNextPage: () =>
+                      ref.read(topRatedMoviesProvider.notifier).loadNextPage(),
+                ),
+                const SizedBox(height: 10),
+              ],
+            );
+          }, childCount: 1),
+        ),
+      ],
+    );
   }
 
   @override

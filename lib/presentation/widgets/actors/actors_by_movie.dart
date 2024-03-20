@@ -63,8 +63,9 @@ class ActorsByMovie extends ConsumerWidget {
                   actor.character ?? '',
                   maxLines: 2,
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      overflow: TextOverflow.ellipsis),
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),

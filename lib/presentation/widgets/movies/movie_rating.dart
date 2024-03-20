@@ -18,9 +18,8 @@ class MovieRating extends StatelessWidget {
           const SizedBox(width: 3),
           Text(
             HumanFormats.number(voteAverage, 1),
-            style: textStyles.bodyMedium?.copyWith(
-              color: Colors.yellow.shade800,
-            ),
+            style:
+                textStyles.bodyMedium?.copyWith(color: Colors.yellow.shade800),
           ),
         ],
       ),

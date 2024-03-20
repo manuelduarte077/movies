@@ -50,21 +50,27 @@ class FavoritesViewState extends ConsumerState<FavoritesView>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(Icons.favorite_outline_sharp, size: 60, color: colors.primary),
-            Text('Ohhh no!!',
-                style: TextStyle(fontSize: 30, color: colors.primary)),
-            const Text('No tienes películas favoritas',
-                style: TextStyle(fontSize: 20)),
+            Text(
+              'Ohhh no!!',
+              style: TextStyle(fontSize: 30, color: colors.primary),
+            ),
+            const Text(
+              'No tienes películas favoritas',
+              style: TextStyle(fontSize: 20),
+            ),
             const SizedBox(height: 20),
             FilledButton.tonal(
-                onPressed: () => context.go('/home/0'),
-                child: const Text('Empieza a buscar'))
+              onPressed: () => context.go('/home/0'),
+              child: const Text('Empieza a buscar'),
+            )
           ],
         ),
       );
     }
 
     return Scaffold(
-        body: MovieMasonry(loadNextPage: loadNextPage, movies: favoriteMovies));
+      body: MovieMasonry(loadNextPage: loadNextPage, movies: favoriteMovies),
+    );
   }
 
   @override
