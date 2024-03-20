@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:movies/app/app.dart';
-import 'package:movies/providers/movies_provider.dart';
-import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const AppState());
+import 'package:cinemapedia/config/router/app_router.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import 'package:cinemapedia/config/theme/app_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+Future<void> main() async{
+
+  await dotenv.load(fileName: '.env');
+
+  runApp(
+    const ProviderScope(child: MainApp() )
+  );
 }
 
-class AppState extends StatelessWidget {
-  const AppState({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => MoviesProvider(),
-          lazy: false,
-        ),
-      ],
-      child: const MyApp(),
+    return MaterialApp.router(
+      routerConfig: appRouter,
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme().getTheme(),
     );
   }
 }

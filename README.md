@@ -1,11 +1,30 @@
-# Movie App
+# Cinemapedia
+Proyecto del curso de Flutter 2023 de Fernando Herrera
+# Dev
 
-## Screenshot 
-| ![Home ScreenShots](https://user-images.githubusercontent.com/46093689/183237083-b727efb7-b42c-4ca8-a35c-9c4926ef41fb.png) | ![Cart ScreenShots](https://user-images.githubusercontent.com/46093689/183237086-9664dade-2759-4784-a58d-47b952619158.png) | ![Profile ScreenShots](https://user-images.githubusercontent.com/46093689/183237094-6a4fdefc-54df-4953-8f83-5c88bc358240.png) |
-| ----------------------------------------------- | ----------------------------------------------- | -------------------------------------------------------- |
+1. Copiar el .env.template y renombrarlo a .env
+2. Cambiar las variables de entorno (The MovieDB)
+3. Cambios en la entidad, hay que ejecutar el comando
+```
+flutter pub run build_runner build
+```
 
-## Packages
-- provider
-- http
-- google_fonts
-- card_swiper
+## :+1: Sígueme en mis redes sociales:
+
+- WebPersonal: (https://jorge-vicuna.gitlab.io/jorge-vicuna/)
+- GitLab: (https://gitlab.com/jorge_vicuna)
+- Youtube: (https://www.youtube.com/channel/UCW0m1TKKiN3Etejqx6h3Jtg)
+- Linkedin: (https://www.linkedin.com/in/jorge-vicuna-valle/)
+- Facebook: (https://www.facebook.com/jorge.vicunavalle/)
+
+<table>
+    <td align="center" >
+      <a href="https://jorge-vicuna.gitlab.io/jorge-vicuna/">
+        <img src="https://jorge-vicuna.gitlab.io/jorge-vicuna/static/media/avatar.272f0e79.jpg" width="100px;" alt=""/>
+        <br />
+        <sub><b>Jorge Vicuña Valle</b></sub>
+      </a>
+            <br />
+      <span>♌🍗🎸🏀</span>
+    </td>
+</Table>
