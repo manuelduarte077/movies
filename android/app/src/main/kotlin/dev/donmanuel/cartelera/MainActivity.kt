@@ -1,4 +1,4 @@
-package com.example.cinemapedia
+package dev.donmanuel.cartelera
 
 import io.flutter.embedding.android.FlutterActivity
 
