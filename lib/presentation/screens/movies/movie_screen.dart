@@ -1,7 +1,10 @@
+import 'package:animated_read_more_text/animated_read_more_text.dart';
 import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:animate_do/animate_do.dart';
+
+import 'package:intl/intl.dart';
 
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
@@ -67,7 +70,11 @@ class _MovieDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //* Titulo, OverView y Rating
-        _TitleAndOverview(movie: movie, size: size, textStyles: textStyles),
+        _TitleAndOverview(
+          movie: movie,
+          size: size,
+          textStyles: textStyles,
+        ),
 
         //* Generos de la película
         _Genres(movie: movie),
@@ -99,16 +106,21 @@ class _Genres extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.start,
+          alignment: WrapAlignment.start,
           children: [
             ...movie.genreIds.map(
               (gender) => Container(
-                margin: const EdgeInsets.only(right: 10),
+                margin: const EdgeInsets.only(right: 10, left: 10),
                 child: Chip(
-                  label: Text(gender),
+                  label: Text(
+                    gender,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
@@ -133,10 +145,13 @@ class _TitleAndOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final releaseDate = DateFormat('yyyy-MM-dd').format(movie.releaseDate);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Imagen
           ClipRRect(
@@ -147,8 +162,6 @@ class _TitleAndOverview extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(width: 10),
-
           // Descripción
           SizedBox(
             width: (size.width - 40) * 0.7,
@@ -156,19 +169,36 @@ class _TitleAndOverview extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(movie.title, style: textStyles.titleLarge),
-                Text(movie.overview),
+                const SizedBox(height: 5),
+                AnimatedReadMoreText(
+                  movie.overview.isNotEmpty
+                      ? movie.overview
+                      : 'No overview available',
+                  maxLines: movie.overview.length > 100 ? 3 : 2,
+                  readMoreText: 'Read more',
+                  readLessText: 'Read less',
+                  buttonTextStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 10),
                 MovieRating(voteAverage: movie.voteAverage),
-                const Row(
+                const SizedBox(height: 5),
+                Row(
                   children: [
-                    Text(
+                    const Text(
                       'Estreno:',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(width: 5),
-                    // Text(HumanFormats.date(movie.releaseDate) ?? '')
+                    const SizedBox(width: 5),
+                    Text(releaseDate)
                   ],
-                )
+                ),
+                Text(
+                  'Idioma: ${movie.originalLanguage}',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
               ],
             ),
           )
@@ -178,11 +208,12 @@ class _TitleAndOverview extends StatelessWidget {
   }
 }
 
-final isFavoriteProvider =
-    FutureProvider.family.autoDispose((ref, int movieId) {
-  final localStorageRepository = ref.watch(localStorageRepositoryProvider);
-  return localStorageRepository.isMovieFavorite(movieId);
-});
+final isFavoriteProvider = FutureProvider.family.autoDispose(
+  (ref, int movieId) {
+    final localStorageRepository = ref.watch(localStorageRepositoryProvider);
+    return localStorageRepository.isMovieFavorite(movieId);
+  },
+);
 
 class _CustomSliverAppBar extends ConsumerWidget {
   final Movie movie;
@@ -240,25 +271,24 @@ class _CustomSliverAppBar extends ConsumerWidget {
 
             //* Favorite Gradient Background
             const _CustomGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                stops: [
-                  0.0,
-                  0.2
-                ],
-                colors: [
-                  Colors.black54,
-                  Colors.transparent,
-                ]),
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              stops: [0.0, 0.2],
+              colors: [
+                Colors.black54,
+                Colors.transparent,
+              ],
+            ),
 
             //* Back arrow background
-            const _CustomGradient(begin: Alignment.topLeft, stops: [
-              0.0,
-              0.3
-            ], colors: [
-              Colors.black87,
-              Colors.transparent,
-            ]),
+            const _CustomGradient(
+              begin: Alignment.topLeft,
+              stops: [0.0, 0.3],
+              colors: [
+                Colors.black87,
+                Colors.transparent,
+              ],
+            ),
           ],
         ),
       ),
@@ -269,14 +299,16 @@ class _CustomSliverAppBar extends ConsumerWidget {
 class _CustomGradient extends StatelessWidget {
   final AlignmentGeometry begin;
   final AlignmentGeometry end;
+
   final List<double> stops;
   final List<Color> colors;
 
-  const _CustomGradient(
-      {this.begin = Alignment.centerLeft,
-      this.end = Alignment.centerRight,
-      required this.stops,
-      required this.colors});
+  const _CustomGradient({
+    this.begin = Alignment.centerLeft,
+    this.end = Alignment.centerRight,
+    required this.stops,
+    required this.colors,
+  });
 
   @override
   Widget build(BuildContext context) {

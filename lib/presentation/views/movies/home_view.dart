@@ -38,7 +38,7 @@ class HomeViewState extends ConsumerState<HomeView>
     return CustomScrollView(
       slivers: [
         const SliverAppBar.medium(
-          floating: true,
+          pinned: true,
           title: Text('Cartelera'),
           actions: [
             CustomAppbar(),

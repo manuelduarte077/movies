@@ -40,23 +40,22 @@ class ActorsByMovie extends ConsumerWidget {
                 // Actor Photo
                 FadeInRight(
                   child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: FadeInImage(
-                        height: 180,
-                        width: 135,
-                        fit: BoxFit.cover,
-                        placeholder: const AssetImage(
-                            'assets/loaders/bottle-loader.gif'),
-                        image: NetworkImage(
-                          actor.profilePath,
-                        ),
-                      )),
+                    borderRadius: BorderRadius.circular(20),
+                    child: FadeInImage(
+                      height: 180,
+                      width: 135,
+                      fit: BoxFit.cover,
+                      placeholder:
+                          const AssetImage('assets/loaders/bottle-loader.gif'),
+                      image: NetworkImage(
+                        actor.profilePath,
+                      ),
+                    ),
+                  ),
                 ),
 
                 // Nombre
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
 
                 Text(actor.name, maxLines: 2),
                 Text(
