@@ -11,9 +11,10 @@ class MoviesSlideshow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final size = MediaQuery.of(context).size;
 
     return SizedBox(
-      height: 210,
+      height: size.height * 0.4,
       width: double.infinity,
       child: Swiper(
         viewportFraction: 0.8,
@@ -55,14 +56,18 @@ class _Slide extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 30),
       child: DecoratedBox(
         decoration: decoration,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: GestureDetector(
-            onTap: () => context.push('/home/0/movie/${movie.id}'),
-            child: FadeInImage(
-              fit: BoxFit.cover,
-              placeholder: const AssetImage('assets/loaders/bottle-loader.gif'),
-              image: NetworkImage(movie.backdropPath),
+        child: Hero(
+          tag: movie.id,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: GestureDetector(
+              onTap: () => context.push('/home/0/movie/${movie.id}'),
+              child: FadeInImage(
+                fit: BoxFit.cover,
+                placeholder:
+                    const AssetImage('assets/loaders/bottle-loader.gif'),
+                image: NetworkImage(movie.backdropPath),
+              ),
             ),
           ),
         ),
