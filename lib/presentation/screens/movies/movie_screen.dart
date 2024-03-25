@@ -79,6 +79,9 @@ class _MovieDetails extends StatelessWidget {
         //* Generos de la película
         _Genres(movie: movie),
 
+        //* Producción de la película
+        _ProductionCompanies(movie: movie),
+
         //* Actores de la película
         ActorsByMovie(movieId: movie.id.toString()),
 
@@ -88,6 +91,48 @@ class _MovieDetails extends StatelessWidget {
         //* Películas similares
         SimilarMovies(movieId: movie.id),
       ],
+    );
+  }
+}
+
+class _ProductionCompanies extends StatelessWidget {
+  const _ProductionCompanies({required this.movie});
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Production Companies 🎥',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
+          ...movie.productionCompanies.map(
+            (company) {
+              return Row(
+                children: [
+                  Text(
+                    company,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  const Icon(Icons.arrow_forward_ios_rounded, size: 15),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
@@ -102,31 +147,28 @@ class _Genres extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
-      child: SizedBox(
-        width: double.infinity,
-        child: Wrap(
-          crossAxisAlignment: WrapCrossAlignment.start,
-          alignment: WrapAlignment.start,
-          children: [
-            ...movie.genreIds.map(
-              (gender) => Container(
-                margin: const EdgeInsets.only(right: 10, left: 10),
-                child: Chip(
-                  label: Text(
-                    gender,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+      padding: const EdgeInsets.only(left: 10),
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.start,
+        alignment: WrapAlignment.start,
+        children: [
+          ...movie.genreIds.map(
+            (gender) => Container(
+              margin: const EdgeInsets.only(right: 5),
+              child: Chip(
+                label: Text(
+                  gender,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

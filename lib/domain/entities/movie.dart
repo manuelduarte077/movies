@@ -8,7 +8,10 @@ class Movie {
 
   final bool adult;
   final String backdropPath;
+  final String homepage;
   final List<String> genreIds;
+  final List<String> productionCompanies;
+  final List<String> spokenLanguages;
   final int id;
   final String originalLanguage;
   final String originalTitle;
@@ -24,7 +27,10 @@ class Movie {
   Movie({
     required this.adult,
     required this.backdropPath,
+    required this.homepage,
     required this.genreIds,
+    required this.productionCompanies,
+    required this.spokenLanguages,
     required this.id,
     required this.originalLanguage,
     required this.originalTitle,

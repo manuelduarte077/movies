@@ -32,58 +32,73 @@ const MovieSchema = CollectionSchema(
       name: r'genreIds',
       type: IsarType.stringList,
     ),
-    r'id': PropertySchema(
+    r'homepage': PropertySchema(
       id: 3,
+      name: r'homepage',
+      type: IsarType.string,
+    ),
+    r'id': PropertySchema(
+      id: 4,
       name: r'id',
       type: IsarType.long,
     ),
     r'originalLanguage': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'originalLanguage',
       type: IsarType.string,
     ),
     r'originalTitle': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'originalTitle',
       type: IsarType.string,
     ),
     r'overview': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'overview',
       type: IsarType.string,
     ),
     r'popularity': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'popularity',
       type: IsarType.double,
     ),
     r'posterPath': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'posterPath',
       type: IsarType.string,
     ),
+    r'productionCompanies': PropertySchema(
+      id: 10,
+      name: r'productionCompanies',
+      type: IsarType.stringList,
+    ),
     r'releaseDate': PropertySchema(
-      id: 9,
+      id: 11,
       name: r'releaseDate',
       type: IsarType.dateTime,
     ),
+    r'spokenLanguages': PropertySchema(
+      id: 12,
+      name: r'spokenLanguages',
+      type: IsarType.stringList,
+    ),
     r'title': PropertySchema(
-      id: 10,
+      id: 13,
       name: r'title',
       type: IsarType.string,
     ),
     r'video': PropertySchema(
-      id: 11,
+      id: 14,
       name: r'video',
       type: IsarType.bool,
     ),
     r'voteAverage': PropertySchema(
-      id: 12,
+      id: 15,
       name: r'voteAverage',
       type: IsarType.double,
     ),
     r'voteCount': PropertySchema(
-      id: 13,
+      id: 16,
       name: r'voteCount',
       type: IsarType.long,
     )
@@ -116,10 +131,25 @@ int _movieEstimateSize(
       bytesCount += value.length * 3;
     }
   }
+  bytesCount += 3 + object.homepage.length * 3;
   bytesCount += 3 + object.originalLanguage.length * 3;
   bytesCount += 3 + object.originalTitle.length * 3;
   bytesCount += 3 + object.overview.length * 3;
   bytesCount += 3 + object.posterPath.length * 3;
+  bytesCount += 3 + object.productionCompanies.length * 3;
+  {
+    for (var i = 0; i < object.productionCompanies.length; i++) {
+      final value = object.productionCompanies[i];
+      bytesCount += value.length * 3;
+    }
+  }
+  bytesCount += 3 + object.spokenLanguages.length * 3;
+  {
+    for (var i = 0; i < object.spokenLanguages.length; i++) {
+      final value = object.spokenLanguages[i];
+      bytesCount += value.length * 3;
+    }
+  }
   bytesCount += 3 + object.title.length * 3;
   return bytesCount;
 }
@@ -133,17 +163,20 @@ void _movieSerialize(
   writer.writeBool(offsets[0], object.adult);
   writer.writeString(offsets[1], object.backdropPath);
   writer.writeStringList(offsets[2], object.genreIds);
-  writer.writeLong(offsets[3], object.id);
-  writer.writeString(offsets[4], object.originalLanguage);
-  writer.writeString(offsets[5], object.originalTitle);
-  writer.writeString(offsets[6], object.overview);
-  writer.writeDouble(offsets[7], object.popularity);
-  writer.writeString(offsets[8], object.posterPath);
-  writer.writeDateTime(offsets[9], object.releaseDate);
-  writer.writeString(offsets[10], object.title);
-  writer.writeBool(offsets[11], object.video);
-  writer.writeDouble(offsets[12], object.voteAverage);
-  writer.writeLong(offsets[13], object.voteCount);
+  writer.writeString(offsets[3], object.homepage);
+  writer.writeLong(offsets[4], object.id);
+  writer.writeString(offsets[5], object.originalLanguage);
+  writer.writeString(offsets[6], object.originalTitle);
+  writer.writeString(offsets[7], object.overview);
+  writer.writeDouble(offsets[8], object.popularity);
+  writer.writeString(offsets[9], object.posterPath);
+  writer.writeStringList(offsets[10], object.productionCompanies);
+  writer.writeDateTime(offsets[11], object.releaseDate);
+  writer.writeStringList(offsets[12], object.spokenLanguages);
+  writer.writeString(offsets[13], object.title);
+  writer.writeBool(offsets[14], object.video);
+  writer.writeDouble(offsets[15], object.voteAverage);
+  writer.writeLong(offsets[16], object.voteCount);
 }
 
 Movie _movieDeserialize(
@@ -156,17 +189,20 @@ Movie _movieDeserialize(
     adult: reader.readBool(offsets[0]),
     backdropPath: reader.readString(offsets[1]),
     genreIds: reader.readStringList(offsets[2]) ?? [],
-    id: reader.readLong(offsets[3]),
-    originalLanguage: reader.readString(offsets[4]),
-    originalTitle: reader.readString(offsets[5]),
-    overview: reader.readString(offsets[6]),
-    popularity: reader.readDouble(offsets[7]),
-    posterPath: reader.readString(offsets[8]),
-    releaseDate: reader.readDateTime(offsets[9]),
-    title: reader.readString(offsets[10]),
-    video: reader.readBool(offsets[11]),
-    voteAverage: reader.readDouble(offsets[12]),
-    voteCount: reader.readLong(offsets[13]),
+    homepage: reader.readString(offsets[3]),
+    id: reader.readLong(offsets[4]),
+    originalLanguage: reader.readString(offsets[5]),
+    originalTitle: reader.readString(offsets[6]),
+    overview: reader.readString(offsets[7]),
+    popularity: reader.readDouble(offsets[8]),
+    posterPath: reader.readString(offsets[9]),
+    productionCompanies: reader.readStringList(offsets[10]) ?? [],
+    releaseDate: reader.readDateTime(offsets[11]),
+    spokenLanguages: reader.readStringList(offsets[12]) ?? [],
+    title: reader.readString(offsets[13]),
+    video: reader.readBool(offsets[14]),
+    voteAverage: reader.readDouble(offsets[15]),
+    voteCount: reader.readLong(offsets[16]),
   );
   object.isarId = id;
   return object;
@@ -186,26 +222,32 @@ P _movieDeserializeProp<P>(
     case 2:
       return (reader.readStringList(offset) ?? []) as P;
     case 3:
-      return (reader.readLong(offset)) as P;
-    case 4:
       return (reader.readString(offset)) as P;
+    case 4:
+      return (reader.readLong(offset)) as P;
     case 5:
       return (reader.readString(offset)) as P;
     case 6:
       return (reader.readString(offset)) as P;
     case 7:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 8:
-      return (reader.readString(offset)) as P;
-    case 9:
-      return (reader.readDateTime(offset)) as P;
-    case 10:
-      return (reader.readString(offset)) as P;
-    case 11:
-      return (reader.readBool(offset)) as P;
-    case 12:
       return (reader.readDouble(offset)) as P;
+    case 9:
+      return (reader.readString(offset)) as P;
+    case 10:
+      return (reader.readStringList(offset) ?? []) as P;
+    case 11:
+      return (reader.readDateTime(offset)) as P;
+    case 12:
+      return (reader.readStringList(offset) ?? []) as P;
     case 13:
+      return (reader.readString(offset)) as P;
+    case 14:
+      return (reader.readBool(offset)) as P;
+    case 15:
+      return (reader.readDouble(offset)) as P;
+    case 16:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -651,6 +693,136 @@ extension MovieQueryFilter on QueryBuilder<Movie, Movie, QFilterCondition> {
         upper,
         includeUpper,
       );
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition> homepageEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'homepage',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition> homepageGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'homepage',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition> homepageLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'homepage',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition> homepageBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'homepage',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition> homepageStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'homepage',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition> homepageEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'homepage',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition> homepageContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'homepage',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition> homepageMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'homepage',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition> homepageIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'homepage',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition> homepageIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'homepage',
+        value: '',
+      ));
     });
   }
 
@@ -1357,6 +1529,233 @@ extension MovieQueryFilter on QueryBuilder<Movie, Movie, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesElementEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'productionCompanies',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesElementGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'productionCompanies',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'productionCompanies',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesElementBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'productionCompanies',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesElementStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'productionCompanies',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesElementEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'productionCompanies',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesElementContains(String value,
+          {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'productionCompanies',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesElementMatches(String pattern,
+          {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'productionCompanies',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'productionCompanies',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'productionCompanies',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'productionCompanies',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'productionCompanies',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'productionCompanies',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'productionCompanies',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'productionCompanies',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      productionCompaniesLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'productionCompanies',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
   QueryBuilder<Movie, Movie, QAfterFilterCondition> releaseDateEqualTo(
       DateTime value) {
     return QueryBuilder.apply(this, (query) {
@@ -1407,6 +1806,232 @@ extension MovieQueryFilter on QueryBuilder<Movie, Movie, QFilterCondition> {
         upper: upper,
         includeUpper: includeUpper,
       ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesElementEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'spokenLanguages',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesElementGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'spokenLanguages',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'spokenLanguages',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesElementBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'spokenLanguages',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesElementStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'spokenLanguages',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesElementEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'spokenLanguages',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesElementContains(String value,
+          {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'spokenLanguages',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesElementMatches(String pattern,
+          {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'spokenLanguages',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'spokenLanguages',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'spokenLanguages',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'spokenLanguages',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition> spokenLanguagesIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'spokenLanguages',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'spokenLanguages',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'spokenLanguages',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'spokenLanguages',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition>
+      spokenLanguagesLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'spokenLanguages',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
     });
   }
 
@@ -1692,6 +2317,18 @@ extension MovieQuerySortBy on QueryBuilder<Movie, Movie, QSortBy> {
     });
   }
 
+  QueryBuilder<Movie, Movie, QAfterSortBy> sortByHomepage() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'homepage', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterSortBy> sortByHomepageDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'homepage', Sort.desc);
+    });
+  }
+
   QueryBuilder<Movie, Movie, QAfterSortBy> sortById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -1847,6 +2484,18 @@ extension MovieQuerySortThenBy on QueryBuilder<Movie, Movie, QSortThenBy> {
   QueryBuilder<Movie, Movie, QAfterSortBy> thenByBackdropPathDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'backdropPath', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterSortBy> thenByHomepage() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'homepage', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterSortBy> thenByHomepageDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'homepage', Sort.desc);
     });
   }
 
@@ -2015,6 +2664,13 @@ extension MovieQueryWhereDistinct on QueryBuilder<Movie, Movie, QDistinct> {
     });
   }
 
+  QueryBuilder<Movie, Movie, QDistinct> distinctByHomepage(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'homepage', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<Movie, Movie, QDistinct> distinctById() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'id');
@@ -2057,9 +2713,21 @@ extension MovieQueryWhereDistinct on QueryBuilder<Movie, Movie, QDistinct> {
     });
   }
 
+  QueryBuilder<Movie, Movie, QDistinct> distinctByProductionCompanies() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'productionCompanies');
+    });
+  }
+
   QueryBuilder<Movie, Movie, QDistinct> distinctByReleaseDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'releaseDate');
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QDistinct> distinctBySpokenLanguages() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'spokenLanguages');
     });
   }
 
@@ -2114,6 +2782,12 @@ extension MovieQueryProperty on QueryBuilder<Movie, Movie, QQueryProperty> {
     });
   }
 
+  QueryBuilder<Movie, String, QQueryOperations> homepageProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'homepage');
+    });
+  }
+
   QueryBuilder<Movie, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
@@ -2150,9 +2824,23 @@ extension MovieQueryProperty on QueryBuilder<Movie, Movie, QQueryProperty> {
     });
   }
 
+  QueryBuilder<Movie, List<String>, QQueryOperations>
+      productionCompaniesProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'productionCompanies');
+    });
+  }
+
   QueryBuilder<Movie, DateTime, QQueryOperations> releaseDateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'releaseDate');
+    });
+  }
+
+  QueryBuilder<Movie, List<String>, QQueryOperations>
+      spokenLanguagesProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'spokenLanguages');
     });
   }
 
