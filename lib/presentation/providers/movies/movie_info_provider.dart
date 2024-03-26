@@ -8,15 +8,6 @@ final movieInfoProvider =
   return MovieMapNotifier(getMovie: movieRepository.getMovieById);
 });
 
-/*
-  {
-    '505642': Movie(),
-    '505643': Movie(),
-    '505645': Movie(),
-    '501231': Movie(),
-  }
-*/
-
 typedef GetMovieCallback = Future<Movie> Function(String movieId);
 
 class MovieMapNotifier extends StateNotifier<Map<String, Movie>> {

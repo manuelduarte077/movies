@@ -38,12 +38,11 @@ class HomeViewState extends ConsumerState<HomeView>
     return CustomScrollView(
       slivers: [
         const SliverAppBar(
-          floating: true,
-          flexibleSpace: FlexibleSpaceBar(
-            titlePadding: EdgeInsets.all(
-                0), // Soluciono el problema del espacio en el CustomAppbar
-            title: CustomAppbar(),
-          ),
+          pinned: true,
+          title: Text('Cartelera'),
+          actions: [
+            CustomAppbar(),
+          ],
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate((context, index) {

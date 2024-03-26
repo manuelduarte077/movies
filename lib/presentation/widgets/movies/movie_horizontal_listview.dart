@@ -10,12 +10,13 @@ class MovieHorizontalListview extends StatefulWidget {
   final String? subTitle;
   final VoidCallback? loadNextPage;
 
-  const MovieHorizontalListview(
-      {super.key,
-      required this.movies,
-      this.title,
-      this.subTitle,
-      this.loadNextPage});
+  const MovieHorizontalListview({
+    super.key,
+    required this.movies,
+    this.title,
+    this.subTitle,
+    this.loadNextPage,
+  });
 
   @override
   State<MovieHorizontalListview> createState() =>
